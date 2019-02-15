@@ -11,7 +11,7 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 id = 0
 
 # names related to ids: example ==> Marcelo: id=1,  etc
-names = ['None', 'Anton']
+names = ['None', 'Anton', 'Lox']
 
 # Initialize and start realtime video capture
 video_capture = cv2.VideoCapture(0)
@@ -36,8 +36,8 @@ while True:
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         id, confidence = recognizer.predict(gray[y:y + h, x:x + w])
-        # Check if confidence is less then 100 ,it's a match
-        if (confidence > 50):
+        #Confidence(100 is better than 200, and 0 would be a "perfect match"))
+        if (confidence < 100):
             id = names[id]
             confidence = "  {0}%".format(round(100 - confidence))
         else:
@@ -48,7 +48,7 @@ while True:
         cv2.putText(frame, str(confidence), (x + 5, y + h - 5), font, 1, (255, 255, 0), 1)
 
     cv2.imshow('Video', frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):  # Press 'ESC' for exiting video
+    if cv2.waitKey(1) & 0xFF == ord('q'):  # Press 'q' for exit
         break
 # Do a bit of cleanup
 print("\n [INFO] Exiting Program and cleanup stuff")
