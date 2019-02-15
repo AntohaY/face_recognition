@@ -2,11 +2,11 @@ import cv2
 import sys
 print(cv2.__version__)
 
-#Get user's values
-imagePath = sys.argv[1]
-cascPath = sys.argv[2]
+#Image path
+imagePath = 'abba.png'
+
 #Haar cascade
-faceCascade = cv2.CascadeClassifier(cascPath)
+faceCascade = cv2.CascadeClassifier('../haarcascade_frontalface_default.xml')
 
 #Read the image
 image = cv2.imread(imagePath)

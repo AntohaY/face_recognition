@@ -10,7 +10,7 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 # iniciate id counter
 id = 0
 
-# names related to ids: example ==> Marcelo: id=1,  etc
+# names related to ids: example ==> Anton: id=1,  etc
 names = ['None', 'Anton', 'Lox']
 
 # Initialize and start realtime video capture
@@ -29,15 +29,15 @@ while True:
 
     faces = faceCascade.detectMultiScale(
         gray,
-        scaleFactor=1.1,
+        scaleFactor=1.2,
         minNeighbors=5,
-        minSize=(int(minW), int(minH)),
+        minSize=(30,30),   #int(minW), int(minH)
     )
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         id, confidence = recognizer.predict(gray[y:y + h, x:x + w])
         #Confidence(100 is better than 200, and 0 would be a "perfect match"))
-        if (confidence < 100):
+        if (confidence < 75):
             id = names[id]
             confidence = "  {0}%".format(round(100 - confidence))
         else:
